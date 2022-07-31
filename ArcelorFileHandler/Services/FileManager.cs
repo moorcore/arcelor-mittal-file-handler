@@ -1,23 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ArcelorFileHandler.Services
 {
-    public static class FileManager
+    public class FileManager
     {
-        public static void DirSearch(string path)
+        public List<string> invoiceNumbersList = new List<string>();
+
+        public void DirSearch(string path)
         {
+            string invoiceNumber;
             try
             {
                 foreach (string dir in Directory.GetDirectories(path))
                 {
                     foreach (string file in Directory.GetFiles(dir))
                     {
-                        Console.WriteLine(file);
+                        var lastOperatorIndex = file.LastIndexOf(' ');
+                        string tempString = file.Substring(lastOperatorIndex);
+                        invoiceNumber = tempString.Substring(1, tempString.Length - 5);
+                        if (invoiceNumber.Length == 7)
+                        {
+                            invoiceNumbersList.Add(invoiceNumber);
+                        }
                     }
                     DirSearch(dir);
                 }

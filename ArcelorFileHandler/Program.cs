@@ -11,13 +11,18 @@ namespace ArcelorFileHandler
         // TODO: get the number of cells by couning the values from the column with numbers
         static void Main(string[] args)
         {
-            // FileManager.DirSearch("D:\\Coding\\Arcelor Mittal\\Сентябрь");
+            FileManager fileManager = new FileManager();
+            fileManager.DirSearch("D:\\Coding\\Arcelor Mittal\\Сентябрь");
+
+            // var invoiceNumbersArray = fileManager.invoiceNumbersList.ToArray();
 
             string filePath =
                 "D:\\Coding\\Arcelor Mittal\\Приложения\\Август\\1_Приложение 1 с 01 по 05 августа 2021 г.xlsx";
 
             WorkBook wb = WorkBook.Load(filePath);
             WorkSheet ws = wb.GetWorkSheet("П 42_2021 к Акту №549");
+
+            Console.Read();
 
             var array = ws["F11:F34"].ToArray();
 
