@@ -1,10 +1,10 @@
 ﻿using ArcelorFileHandler.Services;
+using System;
 
 namespace ArcelorFileHandler
 {
     class Program
     {
-        // TODO: get the number of cells by couning the values from the column with numbers
         static void Main(string[] args)
         {
             FileManager fileManager = new FileManager();
