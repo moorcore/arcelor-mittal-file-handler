@@ -6,17 +6,21 @@ namespace ArcelorFileHandler.Services
 {
     public class ExcelApi
     {
-        public void GetInvoiceNumbers(string path)
-        {
-            // TODO: get the number of cells by counting the values from the column with numbers
+        public string _startingCellLiteral { get; set; } = "F";
+        public string _endingCellLiteral { get; set; } = "F";
+        public string _startingCellNumber { get; set; }
+        public string _endingCellNumber { get; set; }
 
-            int invoiceNumbersCount = 0;
+        public void GetInvoiceNumbers(string path, string startingCell = "F11", string endingCell = "F1000")
+        {
+            startingCell = $"{_startingCellLiteral}{_startingCellNumber}";
+            endingCell = $"{_endingCellLiteral}{_endingCellNumber}";
 
             WorkBook workBook = WorkBook.Load(path);
 
             foreach (var worksheet in workBook.WorkSheets)
             {
-                var array = worksheet["F11:F1000"].ToArray();
+                var array = worksheet[$"{startingCell}:{endingCell}"].ToArray();
                 Console.WriteLine(worksheet.RowCount);
 
                 for (int i = 0; i < array.Length; i++)
@@ -30,14 +34,11 @@ namespace ArcelorFileHandler.Services
                     {
                         var cellValue = array[i];
                         Console.WriteLine(cellValue.ToString().Substring(1));
-                        invoiceNumbersCount++;
                     }
                 }
             }
 
             Console.WriteLine();
-
-            Console.WriteLine(invoiceNumbersCount); // 809
 
             Console.Read();
         }
