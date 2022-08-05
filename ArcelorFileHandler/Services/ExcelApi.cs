@@ -20,7 +20,6 @@ namespace ArcelorFileHandler.Services
 
             foreach (var worksheet in workBook.WorkSheets)
             {
-                // TODO: reset the cell number for each worksheet
                 var cell = worksheet[$"{currentCellLiteral}{currentCellNumber}"];
 
                 Console.WriteLine();
@@ -40,6 +39,8 @@ namespace ArcelorFileHandler.Services
 
                     cell = worksheet[$"{currentCellLiteral}{currentCellNumber}"];
                 }
+
+                currentCellNumber = _startingCellNumber;
             }
 
             Console.WriteLine();
