@@ -6,7 +6,7 @@ namespace ArcelorFileHandler.Services
 {
     public class FileManager
     {
-        public List<string> invoiceNumbersList = new List<string>();
+        public List<string> fileInvoiceNumbersList = new List<string>();
 
         public void DirSearch(string path)
         {
@@ -20,9 +20,10 @@ namespace ArcelorFileHandler.Services
                         var lastOperatorIndex = file.LastIndexOf(' ');
                         string tempString = file.Substring(lastOperatorIndex);
                         invoiceNumber = tempString.Substring(1, tempString.Length - 5);
+
                         if (invoiceNumber.Length == 7)
                         {
-                            invoiceNumbersList.Add(invoiceNumber);
+                            fileInvoiceNumbersList.Add(invoiceNumber);
                         }
                     }
                     DirSearch(dir);
