@@ -12,10 +12,12 @@ namespace ArcelorFileHandler
             // fileManager.DirSearch("D:\\Coding\\Arcelor Mittal\\Сентябрь");
 
             string filePath =
-                "D:\\Coding\\Arcelor Mittal\\Приложения\\Август\\1_Приложение 1 с 01 по 05 августа 2021 г.xlsx";
+                "D:\\Coding\\Arcelor Mittal\\Приложения\\Август\\";
+
+            string fileName = "1_Приложение 1 с 01 по 05 августа 2021 г.xlsx";
 
             ExcelApi excelApi = new ExcelApi();
-            excelApi.GetInvoiceNumbers(filePath);
+            excelApi.GetInvoiceNumbers(filePath, fileName);
 
             /*Console.WriteLine(Enumerable.SequenceEqual
                 (fileManager.fileInvoiceNumbersList, excelApi.xlInvoiceNumbersList));*/

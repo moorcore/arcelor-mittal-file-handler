@@ -14,7 +14,7 @@ namespace ArcelorFileHandler.Services
 
         // TODO: handle numbers without letters at the beginning
 
-        public void GetInvoiceNumbers(string path)
+        public void GetInvoiceNumbers(string path, string fileName)
         {
             string currentCellLiteral = _startingCellLiteral;
             int currentCellNumber = _startingCellNumber;
@@ -23,7 +23,7 @@ namespace ArcelorFileHandler.Services
 
             int count = 0;
 
-            WorkBook workBook = WorkBook.Load(path);
+            WorkBook workBook = WorkBook.Load(path + fileName);
 
             foreach (var worksheet in workBook.WorkSheets)
             {
@@ -38,13 +38,13 @@ namespace ArcelorFileHandler.Services
 
                     var firstChar = cell.Value.ToString()[0];
 
-                    if (!char.IsLetter(firstChar) && cell.Value.ToString().Length >= 8)
+                    if (!char.IsLetter(firstChar))
                     {
                         cellValue = cell.Value.ToString();
                         xlInvoiceNumbersList.Add(cellValue);
+                        count++;
                     }
-
-                    if (cell.Value.ToString().Length >= 7)
+                    else
                     {
                         cellValue = cell.Value.ToString().Substring(1);
                         Console.WriteLine(cellValue);
