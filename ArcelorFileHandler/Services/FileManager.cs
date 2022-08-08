@@ -8,7 +8,7 @@ namespace ArcelorFileHandler.Services
     {
         public List<string> fileInvoiceNumbersList = new List<string>();
 
-        public void GetInvoiceNumbersFromPath(string path)
+        public void GetInvoiceNumbersFromFileName(string path)
         {
             string invoiceNumber;
             try
@@ -21,12 +21,12 @@ namespace ArcelorFileHandler.Services
                         string tempString = file.Substring(lastOperatorIndex);
                         invoiceNumber = tempString.Substring(1, tempString.Length - 5);
 
-                        if (invoiceNumber.Length == 7)
+                        if (invoiceNumber.Length >= 7)
                         {
                             fileInvoiceNumbersList.Add(invoiceNumber);
                         }
                     }
-                    GetInvoiceNumbersFromPath(dir);
+                    GetInvoiceNumbersFromFileName(dir);
                 }
             }
             catch (Exception e)

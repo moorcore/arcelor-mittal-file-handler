@@ -14,13 +14,14 @@ namespace ArcelorFileHandler
             string xlFilesDir = "D:\\Coding\\Arcelor Mittal\\Приложения\\Сентябрь\\";
 
             FileManager fileManager = new FileManager();
-            fileManager.GetInvoiceNumbersFromPath(scanFilesDir);
+            fileManager.GetInvoiceNumbersFromFileName(scanFilesDir);
 
             ExcelApi excelApi = new ExcelApi();
 
             foreach (string file in Directory.GetFiles(xlFilesDir))
             {
-                excelApi.GetInvoiceNumbers(xlFilesDir, file.Substring(xlFilesDir.Length));
+                excelApi.GetInvoiceNumbersFromXl(xlFilesDir, file.Substring(xlFilesDir.Length));
+                // Console.WriteLine(file.Substring(xlFilesDir.Length));
             }
 
             Console.WriteLine(Enumerable.SequenceEqual

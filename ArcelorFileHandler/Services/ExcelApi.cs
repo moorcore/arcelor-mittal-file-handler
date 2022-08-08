@@ -12,7 +12,7 @@ namespace ArcelorFileHandler.Services
 
         public List<string> xlInvoiceNumbersList = new List<string>();
 
-        public void GetInvoiceNumbers(string path, string fileName)
+        public void GetInvoiceNumbersFromXl(string path, string fileName)
         {
             string currentCellLiteral = _startingCellLiteral;
             int currentCellNumber = _startingCellNumber;
