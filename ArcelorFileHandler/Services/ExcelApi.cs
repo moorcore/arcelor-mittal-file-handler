@@ -12,8 +12,6 @@ namespace ArcelorFileHandler.Services
 
         public List<string> xlInvoiceNumbersList = new List<string>();
 
-        // TODO: handle numbers without letters at the beginning
-
         public void GetInvoiceNumbers(string path, string fileName)
         {
             string currentCellLiteral = _startingCellLiteral;
@@ -21,7 +19,7 @@ namespace ArcelorFileHandler.Services
 
             string cellValue;
 
-            int count = 0;
+            // int count = 0;
 
             WorkBook workBook = WorkBook.Load(path + fileName);
 
@@ -42,14 +40,13 @@ namespace ArcelorFileHandler.Services
                     {
                         cellValue = cell.Value.ToString();
                         xlInvoiceNumbersList.Add(cellValue);
-                        count++;
+                        // count++;
                     }
                     else
                     {
                         cellValue = cell.Value.ToString().Substring(1);
-                        Console.WriteLine(cellValue);
                         xlInvoiceNumbersList.Add(cellValue);
-                        count++;
+                        // count++;
                     }
 
                     currentCellNumber++;
@@ -60,11 +57,11 @@ namespace ArcelorFileHandler.Services
                 currentCellNumber = _startingCellNumber;
             }
 
-            Console.WriteLine(count);
+            // Console.WriteLine(count);
 
-            Console.WriteLine(xlInvoiceNumbersList.Count);
+            // Console.WriteLine(xlInvoiceNumbersList.Count);
 
-            Console.Read();
+            // Console.Read();
         }
     }
 }

@@ -9,26 +9,22 @@ namespace ArcelorFileHandler
     {
         static void Main(string[] args)
         {
+            string scanFilesDir = "D:\\Coding\\Arcelor Mittal\\Сентябрь";
+
+            string xlFilesDir = "D:\\Coding\\Arcelor Mittal\\Приложения\\Сентябрь\\";
+
             FileManager fileManager = new FileManager();
-            // fileManager.GetInvoiceNumbersFromPath("D:\\Coding\\Arcelor Mittal\\Сентябрь");
-
-            // TODO: check all files from folder
-
-            string directory =
-                "D:\\Coding\\Arcelor Mittal\\Приложения\\Август\\";
-
-            string fileName = "1_Приложение 1 с 01 по 05 августа 2021 г.xlsx";
+            fileManager.GetInvoiceNumbersFromPath(scanFilesDir);
 
             ExcelApi excelApi = new ExcelApi();
-            // excelApi.GetInvoiceNumbers(directory, fileName);
 
-            foreach (string file in Directory.GetFiles(directory))
+            foreach (string file in Directory.GetFiles(xlFilesDir))
             {
-                Console.WriteLine(file.Substring(directory.Length));
+                excelApi.GetInvoiceNumbers(xlFilesDir, file.Substring(xlFilesDir.Length));
             }
 
-            /*Console.WriteLine(Enumerable.SequenceEqual
-                (fileManager.fileInvoiceNumbersList, excelApi.xlInvoiceNumbersList));*/
+            Console.WriteLine(Enumerable.SequenceEqual
+                (fileManager.fileInvoiceNumbersList, excelApi.xlInvoiceNumbersList));
         }
     }
 }
