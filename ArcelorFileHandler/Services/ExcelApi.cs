@@ -16,52 +16,56 @@ namespace ArcelorFileHandler.Services
         {
             string currentCellLiteral = _startingCellLiteral;
             int currentCellNumber = _startingCellNumber;
-
             string cellValue;
 
             // int count = 0;
-
-            WorkBook workBook = WorkBook.Load(path + fileName);
-
-            foreach (var worksheet in workBook.WorkSheets)
+            if (fileName[0] != '~')
             {
-                var cell = worksheet[$"{currentCellLiteral}{currentCellNumber}"];
-
-/*                Console.WriteLine();
-                Console.WriteLine(worksheet.Name);
-                Console.WriteLine();*/
-
-                while (!cell.IsEmpty)
+                try
                 {
+                    WorkBook workBook = WorkBook.Load(path + fileName);
 
-                    var firstChar = cell.Value.ToString()[0];
-
-                    if (!char.IsLetter(firstChar))
+                    foreach (var worksheet in workBook.WorkSheets)
                     {
-                        cellValue = cell.Value.ToString();
-                        xlInvoiceNumbersList.Add(cellValue);
-                        // count++;
-                    }
-                    else
-                    {
-                        cellValue = cell.Value.ToString().Substring(1);
-                        xlInvoiceNumbersList.Add(cellValue);
-                        // count++;
-                    }
+                        var cell = worksheet[$"{currentCellLiteral}{currentCellNumber}"];
 
-                    currentCellNumber++;
+                        while (!cell.IsEmpty)
+                        {
 
-                    cell = worksheet[$"{currentCellLiteral}{currentCellNumber}"];
+                            var firstChar = cell.Value.ToString()[0];
+
+                            if (!char.IsLetter(firstChar))
+                            {
+                                cellValue = cell.Value.ToString();
+                                xlInvoiceNumbersList.Add(cellValue);
+                                // count++;
+                            }
+                            else
+                            {
+                                cellValue = cell.Value.ToString().Substring(1);
+                                xlInvoiceNumbersList.Add(cellValue);
+                                // count++;
+                            }
+
+                            currentCellNumber++;
+
+                            cell = worksheet[$"{currentCellLiteral}{currentCellNumber}"];
+                        }
+
+                        currentCellNumber = _startingCellNumber;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
                 }
 
-                currentCellNumber = _startingCellNumber;
+                // Console.WriteLine(count);
+
+                // Console.WriteLine(xlInvoiceNumbersList.Count);
+
+                // Console.Read();
             }
-
-            // Console.WriteLine(count);
-
-            // Console.WriteLine(xlInvoiceNumbersList.Count);
-
-            // Console.Read();
         }
     }
 }
