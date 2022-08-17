@@ -1,7 +1,8 @@
 ﻿using IronXL;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace ArcelorFileHandler.Services
 {
@@ -18,8 +19,7 @@ namespace ArcelorFileHandler.Services
             int currentCellNumber = _startingCellNumber;
             string cellValue;
 
-            // int count = 0;
-            if (fileName[0] != '~')
+            if (!fileName[0].Equals('~'))
             {
                 try
                 {
@@ -27,44 +27,57 @@ namespace ArcelorFileHandler.Services
 
                     foreach (var worksheet in workBook.WorkSheets)
                     {
-                        var cell = worksheet[$"{currentCellLiteral}{currentCellNumber}"];
-
-                        while (!cell.IsEmpty)
+                        if (!worksheet.Name.Equals("Приложение №1"))
                         {
+                            var cell = worksheet[$"{currentCellLiteral}{currentCellNumber}"];
 
-                            var firstChar = cell.Value.ToString()[0];
-
-                            if (!char.IsLetter(firstChar))
+                            while (!cell.IsEmpty)
                             {
-                                cellValue = cell.Value.ToString();
-                                xlInvoiceNumbersList.Add(cellValue);
-                                // count++;
-                            }
-                            else
-                            {
-                                cellValue = cell.Value.ToString().Substring(1);
-                                xlInvoiceNumbersList.Add(cellValue);
-                                // count++;
+
+                                var firstChar = cell.Value.ToString()[0];
+
+                                if (!char.IsLetter(firstChar))
+                                {
+                                    cellValue = cell.Value.ToString();
+                                    xlInvoiceNumbersList.Add(cellValue);
+                                }
+                                else
+                                {
+                                    cellValue = cell.Value.ToString().Substring(1);
+                                    xlInvoiceNumbersList.Add(cellValue);
+                                }
+
+                                currentCellNumber++;
+
+                                cell = worksheet[$"{currentCellLiteral}{currentCellNumber}"];
                             }
 
-                            currentCellNumber++;
-
-                            cell = worksheet[$"{currentCellLiteral}{currentCellNumber}"];
+                            currentCellNumber = _startingCellNumber;
                         }
-
-                        currentCellNumber = _startingCellNumber;
                     }
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
                 }
+            }
+        }
 
-                // Console.WriteLine(count);
+        public void GetAll(string path)
+        {
+            ExcelApi excelApi = new ExcelApi();
 
-                // Console.WriteLine(xlInvoiceNumbersList.Count);
-
-                // Console.Read();
+            try
+            {
+                foreach (string file in Directory.GetFiles(path))
+                {
+                    excelApi.GetInvoiceNumbersFromXl(path, file.Substring(path.Length));
+                    GetAll(path);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
             }
         }
     }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace ArcelorFileHandler.Services
 {
@@ -11,6 +12,7 @@ namespace ArcelorFileHandler.Services
         public void GetInvoiceNumbersFromFileName(string path)
         {
             string invoiceNumber;
+
             try
             {
                 foreach (string dir in Directory.GetDirectories(path))
