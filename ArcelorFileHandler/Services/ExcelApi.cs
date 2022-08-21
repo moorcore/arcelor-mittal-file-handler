@@ -12,6 +12,7 @@ namespace ArcelorFileHandler.Services
         public int _startingCellNumber { get; set; } = 11;
 
         public List<string> xlInvoiceNumbersList = new List<string>();
+        public List<string> xlUniqueInvoiceNumbersList = new List<string>();
 
         public void GetInvoiceNumbersFromXl(string path, string fileName)
         {
@@ -61,23 +62,18 @@ namespace ArcelorFileHandler.Services
                     Console.WriteLine(e.Message);
                 }
             }
-        }
 
-        public void GetAll(string path)
-        {
-            ExcelApi excelApi = new ExcelApi();
+            xlInvoiceNumbersList.Sort();
 
-            try
+            string uniqueNumber = xlInvoiceNumbersList[0];
+
+            for (int i = 1; i < xlInvoiceNumbersList.Count; i++)
             {
-                foreach (string file in Directory.GetFiles(path))
+                if (xlInvoiceNumbersList[i] != uniqueNumber)
                 {
-                    excelApi.GetInvoiceNumbersFromXl(path, file.Substring(path.Length));
-                    GetAll(path);
+                    uniqueNumber = xlInvoiceNumbersList[i];
+                    xlUniqueInvoiceNumbersList.Add(xlInvoiceNumbersList[i]);
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
             }
         }
     }

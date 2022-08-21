@@ -25,30 +25,13 @@ namespace ArcelorFileHandler
                 excelApi.GetInvoiceNumbersFromXl(xlFilesDir, file.Substring(xlFilesDir.Length));
             }
 
-            excelApi.xlInvoiceNumbersList.Sort();
-
-            string s = excelApi.xlInvoiceNumbersList[0];
-
-            List<string> list = new List<string>();
-
-            for (int i = 1; i < excelApi.xlInvoiceNumbersList.Count; i++)
-            {
-                if (excelApi.xlInvoiceNumbersList[i] != s)
-                {
-                    s = excelApi.xlInvoiceNumbersList[i];
-                    list.Add(excelApi.xlInvoiceNumbersList[i]);
-                }
-            }
-
-            Console.WriteLine(list.Count);
-
-/*            Console.WriteLine(fileManager.fileInvoiceNumbersList.Count);
-            Console.WriteLine(excelApi.xlInvoiceNumbersList.Count);
+            Console.WriteLine(fileManager.fileInvoiceNumbersList.Count);
+            Console.WriteLine(excelApi.xlUniqueInvoiceNumbersList.Count);
 
             Console.WriteLine();
 
             Console.WriteLine(Enumerable.SequenceEqual
-                (fileManager.fileInvoiceNumbersList, excelApi.xlInvoiceNumbersList));*/
+                (fileManager.fileInvoiceNumbersList, excelApi.xlUniqueInvoiceNumbersList));
         }
     }
 }
